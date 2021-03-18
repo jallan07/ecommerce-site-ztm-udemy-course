@@ -14,7 +14,7 @@ class ShopPage extends Component {
   render() {
     const { collections } = this.state;
     return (
-      <div className="shop-page">
+      <div className='shop-page'>
         {/* this allows you to destructure out the other collection props and pass them as props in one attribute as opposed to title={title} image={image}, etc. */}
         {collections.map(({ id, ...otherCollectionProps }) => (
           <CollectionPreview key={id} {...otherCollectionProps} />
