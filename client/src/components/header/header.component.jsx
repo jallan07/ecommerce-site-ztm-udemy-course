@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+// connect lets us modify our component to have access to things related to redux
+import { connect } from 'react-redux';
 
 import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
@@ -33,4 +35,10 @@ const Header = ({ currentUser }) => {
   );
 };
 
-export default Header;
+// this state passed in as an argument is the root reducer
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+// in the first argument of connect, you pass the function that allows us to access the state
+export default connect(mapStateToProps)(Header);
