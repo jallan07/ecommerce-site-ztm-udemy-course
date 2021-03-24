@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 // connect lets us modify our component to have access to things related to redux
 import { connect } from 'react-redux';
 
-import './header.styles.scss';
+import { auth } from '../../firebase/firebase.utils';
+import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-import { auth } from '../../firebase/firebase.utils';
+import './header.styles.scss';
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
   return (
     <div className='header'>
       <Link to='/' className='logo-container'>
@@ -30,14 +33,17 @@ const Header = ({ currentUser }) => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {hidden ? null : <CartDropdown />}
     </div>
   );
 };
 
 // this state passed in as an argument is the root reducer
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 });
 
 // in the first argument of connect, you pass the function that allows us to access the state
